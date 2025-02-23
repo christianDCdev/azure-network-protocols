@@ -18,20 +18,28 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 - Windows 10 (21H2)
 - Ubuntu Server 20.04
 
-<h2>High-Level Steps</h2>
+<h2>Key Steps</h2>
 
-- Step 1
-- Step 2
-- Step 3
-- Step 4
+- Create a resource group
+- Create a Windows 10 virtual machine
+- Create a Linux(Ubuntu) virtual machine
+- Make sure both virtual machines are in the same virtual network/subnet
+- Connect to Windows 10 virtual machine
+- Install and open Wireshark on Windows 10 virtual machine
+- Open PowerShell to observe network traffic
+- Clean up Azure environment
 
 <h2>Actions and Observations</h2>
 
+<h3>Create a Resource Group</h3>
+
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  
+- In Azure, navigate to "Resource Groups"
+- Click "Create" and fill out corresponding fields
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+<img src="https://i.imgur.com/w5yKzNW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <br />
 
