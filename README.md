@@ -22,7 +22,7 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 - Make sure both virtual machines are in the same virtual network/subnet
 - Connect to Windows 10 virtual machine
 - Install and open Wireshark on Windows 10 virtual machine
-- Open PowerShell to observe network traffic
+- Observe network traffic
 - Clean up Azure environment
 
 <h2>Actions and Observations</h2>
@@ -31,7 +31,7 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 
 <p>
   
-- In Azure, navigate to "Resource Groups"
+- Within Azure, navigate to "Resource Groups"
 - Click "Create" and fill out corresponding fields
 </p>
 <p>
@@ -43,7 +43,7 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 
 <p>
 
-- In Azure, navigate to "Virtual Machines"
+- Within Azure, navigate to "Virtual Machines"
 - Click "Create" then select "Azure Virtual Machine"
 - Under "Resource group", select the resource group you previously created(in my case, I named it "RG-Network-Activities")
 <img src="https://i.imgur.com/2DAgUaY.png" height="80%" width="80%" alt="Virtual machine resource group"/>
@@ -53,12 +53,13 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 
 - Finish filling out necessary fields and create your virtual machine
 </p>
+<br />
 
 <h3>Create a Linux(Ubunutu) Virtual Machine</h3>
 
 <p>
   
-- In Azure, navigate to "Virtual Machines"
+- Within Azure, navigate to "Virtual Machines"
 - Click "Create" then select "Azure Virtual Machine"
 - Just like in the previous step, under "Resource group", select the same resource group you previously created(in my case "RG-Network-Activities"
 - Under "Image", select the Ubuntu Server 22.04 LTS or 24.04 LTS option
@@ -73,25 +74,130 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 - Finish filling out necessary fields and create your virtual machine
   
 </p>
+<br />
 
 <h3>Make sure both virtual machines are in the same virtual network/subnet</h3>
 
 <p>
 
-  - In Azure, navigate to "Virtual Machines"
+  - Within Azure, navigate to "Virtual Machines"
   - Click on your Windows virtual machine and check the name of the "Virtual network/subnet"
   - Click on your Linux virtual machine and make sure the "Virtual network/subnet" is the same as in your Window virtual machine(in my case "Lab2-vnet/default")
   <img src="https://i.imgur.com/kMZdeJn.png" height="80%" width="80%" alt="Windows 10 Virtual Network"/>
 </p>
-
 <br />
 
 <h3>Connect to Windows 10 Virtual Machine</h3>
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+- Open up Microsoft Remote Desktop
+- To connect to the Windows 10 virtual machine, we need to find the Public IP Address to fill in the "Computer" field of Microsoft Remote Desktop
+- To retrieve the public IP Address of the Windows 10 virtual machine, go to Azure, navigate to your Windows virtual machine and look for its "Public IP Address"
+- Copy the public IP address and paste it into the "Computer" field in your Remote Desktop Application and connect
+<img src="https://i.imgur.com/Z2iVbds.png" height="80%" width="80%" alt="Remote desktop IP"/>
+
 </p>
 <br />
+
+<h3>Install and open Wireshark on Windows 10 virtual machine</h3>
+
+<p>
+
+  - Within your Windows 10 virtual machine, open up Microsoft Edge, and download and install Wireshark
+  - Open Wireshark
+
+</p>
+<br />
+
+<h3>Observe network traffic</h3>
+
+<p>
+
+  - Open Microsoft Windows PowerShell as we prepare to observe network traffic
+  - Within Wireshark, start packet capture by clicking the blue fin icon at the top left(under the "File" button)
+  <img src="https://i.imgur.com/vCQosqd.png" height="80%" width="80%" alt="Wireshark packet capture"/>
+
+</p>
+
+<h3>ICMP Traffic</h3>
+
+<p>
+
+  - Within Wireshark, type in "ICMP" in the search bar and hit [Enter] to apply a filter that will only display ICMP traffic
+  - Within Azure, retrieve the private IP address for the Linux(Ubuntu) virtual machine you created the same way you retrieved the Windows 10 public IP address
+  - After retrieving the private IP address, we are going to attempt to ping from within the Windows 10 virtual machine
+  - Within PowerShell type "ping" followed by the Linux private IP address (example. "ping 10.0.0.5")
+  - Observe ping requests and replies within Wireshark
+  <img src="https://i.imgur.com/z72ALTZ.png" height="80%" width="80%" alt="Wireshark ICMP Traffic"/>
+
+  - Attempt to ping a public website within PowerShell and observe traffic (example. "ping www.google.com")
+  <img src="https://i.imgur.com/dt89c33.png" height="80%" width="80%" alt="Wireshark Ping Website"/>
+
+  - Initiate a perpetual/nonstop ping from your Windows virtual machine to your Linux(Ubuntu) virtual machine by typing "-t" at the end of the ping (example. "ping 10.0.0.5 -t") and observe traffic
+  <img src="https://i.imgur.com/abixtrr.png" height="80%" width="80%" alt="Wireshark perpetual ping"/>
+
+  - Open the Network Security Group(NSG) your Linux(Ubuntu) virtual machine is using within Azure and disable incoming ICMP traffic by creating a port rule that denies ICMP traffic
+  <img src="https://i.imgur.com/uvHhIX1.png" height="80%" width="80%" alt="Port rule"/>
+
+  - Observe traffic, and if done correctly, the ping requests should continue to timeout
+  <img src="https://i.imgur.com/VnxToy1.png" height="80%" width="80%" alt="Ping timeout"/>
+
+  - Re-enable ICMP traffic by either changing the port rule or deleting it from the NSG
+  - Observe traffic, and if done correctly, the ping activity should start working again
+  - Stop ping activity by hitting "Ctrl + C" within PowerShell
+</p>
+
+<h3>SSH Traffic</h3>
+
+<p>
+
+  - Within Wireshark, type in "SSH" in the search bar and hit [Enter] to apply a filter that will only display SSH traffic
+  - "SSH into" your Linux(Ubuntu) virtual machine through its private IP address by typing "ssh (username)@(private IP address)" within PowerShell (Example. "ssh labuser@10.0.0.5")
+  - Within PowerShell, type commands (hostname, id, etc) into the Linux(ubuntu) SSH connection and observe traffic
+  <img src="https://i.imgur.com/5pkwhHU.png" height="80%" width="80%" alt="SSH traffic"/>
+
+  - Within PowerShell, exit the SSH connection by typing "exit" and pressing [Enter]
+</p>
+
+<h3>DHCP Traffic</h3>
+
+<p>
+
+- Within Wireshark, type in "DHCP" in the search bar and hit [Enter] to apply a filter that will only display DHCP traffic
+- Within your Windows 10 virtual machine, attempt to issue your virtual machine a new IP address with "ipconfig /renew"
+- Observe traffic
+<img src="https://i.imgur.com/3YPCr3h.png" height="80%" width="80%" alt="DHCP"/>
+</p>
+
+<h3>DNS Traffic</h3>
+
+<p>
+
+- Within Wireshark, type in "DNS" in the search bar and hit [Enter] to apply a filter that will only display DNS traffic
+- Within PowerShell, use "nslookup" to retrieve the IP addresses of a website(Example. google.com or disney.com)
+- Observe traffic
+<img src="https://i.imgur.com/9lIeSAN.png" height="80%" width="80%" alt="DNS traffic"/>
+  
+</p>
+
+<h3>RDP Traffic</h3>
+
+<p>
+
+- Within Wireshark, type in "tcp.port == 3389" in the search bar and hit [Enter] to apply a filter that will only display RDP traffic
+- Observe traffic
+- Notice that traffic is non-stop because the RDP protocol is constantly showing a live stream from one computer to another, so traffic is always being transmitted
+<img src="https://i.imgur.com/uFEwWqO.png" height="80%" width="80%" alt="RDP traffic"/>
+</p>
+
+<h3>Clean Up Azure Environment</h3>
+
+<p>
+
+  - Now that we are finished inpecting traffic between virtual machines, we have to clean up our Azure environment to prevent being charged by Microsoft Azure for allocating resources
+  - Close remote desktop connection
+  - Delete resource group(s) created at the beginning
+  - Verify that the resource group(s) have been deleted
+  <img src="https://i.imgur.com/BxzCTKp.png" height="80%" width="80%" alt="RDP traffic"/>
+</p>
