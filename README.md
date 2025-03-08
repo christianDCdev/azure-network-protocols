@@ -1,5 +1,12 @@
+<p align="center">
+<img src="https://wirexsystems.com/wp-content/uploads/2023/01/unnamed-9-1.png" height="70%" width="70%" alt="network traffic"/>
+</p>
+
+
+
 <h1>Network Security Groups (NSGs) and Inspecting Traffic Between Azure Virtual Machines</h1>
-In this tutorial, we observe various network traffic to and from Azure Virtual Machines with Wireshark as well as experiment with Network Security Groups. <br />
+In this tutorial, we will observe various network traffic to and from Azure Virtual Machines with Wireshark as well as experiment with Network Security Groups.  It is crucial to understand network traffic because knowing how data flows across a network enables IT professionals to troubleshoot performance issues, identify security threats, and many other things.
+<br />
 
 <h2>Environments and Technologies Used</h2>
 
@@ -32,7 +39,8 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 <p>
   
 - Within Azure, navigate to "Resource Groups"
-- Click "Create" and fill out corresponding fields
+- Click "Create" and fill out necessary fields
+- Review + create your resource group
 </p>
 <p>
 <img src="https://i.imgur.com/w5yKzNW.png" height="80%" width="80%" alt="Resource Group Page"/>
@@ -51,7 +59,8 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 - Under "Image", select the Windows 10 Pro option
 <img src="https://i.imgur.com/JyjH7kb.png" height="80%" width="80%" alt="Virtual machine image selection"/>
 
-- Finish filling out necessary fields and create your virtual machine
+- Finish filling out necessary fields
+- Review + create your virtual machine
 </p>
 <br />
 
@@ -71,7 +80,8 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 - Navigate to the "Networking" tab, and under "Virtual network", select the virtual network you created when creating the Windows 10 virtual machine(in my case "Lab2-vnet")
 <img src="https://i.imgur.com/NQXygVj.png" height="80%" width="80%" alt="Virtual network"/>
 
-- Finish filling out necessary fields and create your virtual machine
+- Finish filling out necessary fields
+- Review + create your virtual machine
   
 </p>
 <br />
@@ -134,7 +144,7 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
   - Attempt to ping a public website within PowerShell and observe traffic (example. "ping www.google.com")
   <img src="https://i.imgur.com/dt89c33.png" height="80%" width="80%" alt="Wireshark Ping Website"/>
 
-  - Initiate a perpetual/nonstop ping from your Windows virtual machine to your Linux(Ubuntu) virtual machine by typing "-t" at the end of the ping (example. "ping 10.0.0.5 -t") and observe traffic
+  - Initiate a nonstop ping from your Windows virtual machine to your Linux(Ubuntu) virtual machine by typing "-t" at the end of the ping (example. "ping 10.0.0.5 -t") and observe traffic
   <img src="https://i.imgur.com/abixtrr.png" height="80%" width="80%" alt="Wireshark perpetual ping"/>
 
   - Open the Network Security Group(NSG) your Linux(Ubuntu) virtual machine is using within Azure and disable incoming ICMP traffic by creating a port rule that denies ICMP traffic
@@ -175,7 +185,7 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 <p>
 
 - Within Wireshark, type in "DNS" in the search bar and hit [Enter] to apply a filter that will only display DNS traffic
-- Within PowerShell, use "nslookup" to retrieve the IP addresses of a website(Example. google.com or disney.com)
+- Within PowerShell, use "nslookup" to retrieve the IP addresses of a website(Example: "nslookup google.com" or "ns lookup disney.com")
 - Observe traffic
 <img src="https://i.imgur.com/9lIeSAN.png" height="80%" width="80%" alt="DNS traffic"/>
   
@@ -200,4 +210,12 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
   - Delete resource group(s) created at the beginning
   - Verify that the resource group(s) have been deleted
   <img src="https://i.imgur.com/BxzCTKp.png" height="80%" width="80%" alt="RDP traffic"/>
+</p>
+
+<h3>Conclusion</h3>
+
+<p>
+
+Congratulations on completing this project!  I hope this tutorial has taught you how to create and connect to virtual machines within Azure, and given you better insight on how data flows across a network!
+  
 </p>
