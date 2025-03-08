@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://wirexsystems.com/wp-content/uploads/2023/01/unnamed-9-1.png" height="70%" width="70%" alt="network traffic"/>
+<img src="https://learn.g2.com/hubfs/G2CM_FI634_Learn_Article_Images_%5BNetwork_traffic_analysis%5D_V1b.png" height="70%" width="70%" alt="network traffic"/>
 </p>
 
 
