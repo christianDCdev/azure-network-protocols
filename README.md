@@ -48,7 +48,7 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 - Under "Resource group", select the resource group you previously created(in my case, I named it "RG-Network-Activities")
 <img src="https://i.imgur.com/2DAgUaY.png" height="80%" width="80%" alt="Virtual machine resource group"/>
 
-- Under "Image", select the Windows 10 option
+- Under "Image", select the Windows 10 Pro option
 <img src="https://i.imgur.com/JyjH7kb.png" height="80%" width="80%" alt="Virtual machine image selection"/>
 
 - Finish filling out necessary fields and create your virtual machine
